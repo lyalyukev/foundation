@@ -1,6 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\ContributorController;
+use App\Http\Controllers\FundCollectionController;
+use App\Http\Resources\FundCollectionCollection;
+use App\Models\FundCollection;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +17,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+//Creating Collection
+Route::post('/collection/create/', [FundCollectionController::class, 'store']);
+
+//Creating Contributor
+Route::post('/{collection_id}/contributor/create/', [ContributorController::class, 'store']);
+
+//Get detail Collection
+Route::get('/collection/{id}/', [FundCollectionController::class, 'show']);
+
+// Get list of collections
+Route::get('/collections/', [FundCollectionController::class, 'index']);
+
+//Get list of collections with contributors
+Route::get('/collections-with-contributors/', [FundCollectionController::class, 'indexWithContributors']);
+
+//Get list of collection with filter and order parameters (filter=>10000&order=desc)
+Route::get('/collection/filter/{filter}', [FundCollectionController::class, 'filter']);
+
+//If we don`t have route
+Route::fallback(function () {
+    return response()->json([
+        'message' => 'Page Not Found'], 404);
 });
