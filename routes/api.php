@@ -34,7 +34,7 @@ Route::get('/collections/', [FundCollectionController::class, 'index']);
 Route::get('/collections-with-contributors/', [FundCollectionController::class, 'indexWithContributors']);
 
 //Get list of collection with filter and order parameters (filter=>10000&order=desc)
-Route::get('/collection/filter/{filter}', [FundCollectionController::class, 'filter']);
+Route::get('/collections/filter/{filter}/', [FundCollectionController::class, 'filterCollections']);
 
 //If we don`t have route
 Route::fallback(function () {

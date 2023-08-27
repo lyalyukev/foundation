@@ -38,7 +38,7 @@ class FundCollectionController extends Controller
             ->setStatusCode(201);
     }
 
-    public function filter(FilterQueryService $filterQueryService, $filter = null)
+    public function filterCollections(FilterQueryService $filterQueryService, $filter = null)
     {
         $query = FundCollection::query();
 
