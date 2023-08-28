@@ -19,7 +19,9 @@ class FilterQueryService
         $keys = array_keys($parameters);
 
         if (count(array_diff($keys, $allowedKeys)) > 0) {
+
             throw new \InvalidArgumentException('Invalid filter parameters');
+
         }
 
         if (array_key_exists('target_amount', $parameters)) {

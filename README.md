@@ -14,6 +14,10 @@ Fill in database test data
 
 >php artisan db:seed
 
+Generate token for POST API methods
+
+>php artisan token:generate
+
 ## Testing
 
 > cp .env.testing.example .env.testing
@@ -27,9 +31,11 @@ Fill in database test data
 ## Route list
 
 ### Create Collection
+Protect by token, for generating token use "php artisan token:generate"
 > POST /api/v1/collection/create/
 
 ### Create Contributor
+Protect by token, for generating token use "php artisan token:generate"
 > POST /api/v1/{collection_id}/collection/create/
 
 ### Get all Collections

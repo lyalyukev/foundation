@@ -43,6 +43,5 @@ class FundCollectionController extends Controller
         }
 
         return new FundCollectionCollection($query->get());
-
     }
 }

@@ -16,13 +16,17 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+//Protect by token, for generating token use "php artisan token:generate"
 
+Route::middleware('token.protect')->group(function () {
 
 //Creating Collection
-Route::post('/collection/create/', [FundCollectionController::class, 'store']);
+    Route::post('/collection/create/', [FundCollectionController::class, 'store']);
 
 //Creating Contributor
-Route::post('/{collection_id}/contributor/create/', [ContributorController::class, 'store']);
+    Route::post('/{collection_id}/contributor/create/', [ContributorController::class, 'store']);
+
+});
 
 //Get detail Collection
 Route::get('/collection/{id}/', [FundCollectionController::class, 'show']);

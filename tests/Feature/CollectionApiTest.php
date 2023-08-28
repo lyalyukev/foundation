@@ -4,8 +4,10 @@ namespace Tests\Feature;
 
 use App\Models\Contributor;
 use App\Models\FundCollection;
+use App\Models\Token;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 
 class CollectionApiTest extends TestCase
@@ -14,9 +16,15 @@ class CollectionApiTest extends TestCase
 
     public function testCreateFundCollection()
     {
+        Artisan::call('token:generate');
+
+        $token = Token::latest()->pluck('token')->first();
+
         $fundCollectionData = FundCollection::factory()->create()->toArray();
 
-        $response = $this->post('/api/v1/collection/create/', $fundCollectionData);
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->post('/api/v1/collection/create/', $fundCollectionData);
 
         $response->assertStatus(201);
         $response->assertJsonStructure([
@@ -75,7 +83,7 @@ class CollectionApiTest extends TestCase
 
     public function testShowNonExistentCollection()
     {
-        $nonExistentId = 9999;
+        $nonExistentId = 99999;
 
         $response = $this->get("/api/v1/collection/{$nonExistentId}");
 
@@ -94,6 +102,20 @@ class CollectionApiTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function testGetListOfCollectionWithIncorrectFilter()
+    {
+        FundCollection::factory(5)->create([
+            'target_amount' => 250,
+        ]);
+
+        $filter = 'target_amount1=>200';
+
+        $response = $this->get("/api/v1/collections/filter/{$filter}/");
+
+        $response->assertStatus(400);
+    }
+
 
 
 }

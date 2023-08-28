@@ -4,8 +4,10 @@ namespace Tests\Feature;
 
 use App\Models\Contributor;
 use App\Models\FundCollection;
+use App\Models\Token;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 
 class ContributorApiTest extends TestCase
@@ -14,12 +16,18 @@ class ContributorApiTest extends TestCase
 
     public function testCreateContributor()
     {
+        Artisan::call('token:generate');
+
+        $token = Token::latest()->pluck('token')->first();
+
         $collection = FundCollection::factory()->create();
         $contributor = Contributor::factory()->create([
             'collection_id' => $collection->id
         ])->toArray();
 
-        $response = $this->post('/api/v1/'.$collection->id.'/contributor/create/', $contributor);
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->post('/api/v1/'.$collection->id.'/contributor/create/', $contributor);
 
         $response->assertStatus(201);
         $response->assertJsonStructure([
