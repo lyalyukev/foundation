@@ -2,17 +2,25 @@
 
 namespace App\Services;
 
+
 use Illuminate\Database\Eloquent\Builder;
 
 class FilterQueryService
 {
     const OPERATORS = ['>', '<', '='];
 
-    public function handle($filter, $query)
+    public function applyFilters($filter, $query)
     {
-
+        //Allowed filter parameters
+        $allowedKeys = ['target_amount', 'order'];
 
         parse_str($filter, $parameters);
+
+        $keys = array_keys($parameters);
+
+        if (count(array_diff($keys, $allowedKeys)) > 0) {
+            throw new \InvalidArgumentException('Invalid filter parameters');
+        }
 
         if (array_key_exists('target_amount', $parameters)) {
 

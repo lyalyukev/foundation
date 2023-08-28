@@ -36,12 +36,20 @@ class FundCollectionController extends Controller
 
     public function filterCollections(FilterQueryService $filterQueryService, $filter = null)
     {
+        try {
         $query = FundCollection::query();
 
         if ($filter) {
-            $filterQueryService->handle($filter, $query);
+            $filterQueryService->applyFilters($filter, $query);
         }
 
         return new FundCollectionCollection($query->get());
+        
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Invalid filter parameters',
+                'code' => 400,
+            ], 400);
+        }
     }
 }
