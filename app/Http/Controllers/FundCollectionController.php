@@ -24,18 +24,14 @@ class FundCollectionController extends Controller
 
     public function show($id)
     {
-        return new FundCollectionResource
-        (FundCollection::with('contributors')->
-        findOrFail($id));
+        return new FundCollectionResource (FundCollection::with('contributors')->findOrFail($id));
     }
 
     public function store(FundCollectionRequest $request)
     {
         $fundCollection = FundCollection::create($request->validated());
 
-        return (new FundCollectionResource($fundCollection))
-            ->response()
-            ->setStatusCode(201);
+        return (new FundCollectionResource($fundCollection))->response()->setStatusCode(201);
     }
 
     public function filterCollections(FilterQueryService $filterQueryService, $filter = null)
