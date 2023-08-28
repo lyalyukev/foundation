@@ -1,10 +1,28 @@
 
 ## Test task API
 
-### Command:
+### Initial project:
+>composer install
+
+>cp .env.example .env
+
+>php artisan key:generate
+
 >php artisan migrate
 
+Fill in database test data
+
 >php artisan db:seed
+
+## Testing
+
+> cp .env.testing.example .env.testing
+ 
+> php artisan key:generate --env=testing
+
+> php artisan migrate --env=testing
+
+>php artisan test 
 
 ## Route list
 
@@ -21,7 +39,7 @@
 > GET /api/v1/collection/{id}/
 
 ### Get list of Collection
-> GET /api/v1/collection/filter/{filter}/
+> GET /api/v1/collections/filter/{filter}/
 
 We can filter collection (target_amount <=> x and order by sum desc or asc)
 

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Contributor;
 use App\Models\FundCollection;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -26,4 +27,5 @@ class FundCollectionFactory extends Factory
             'created_at' => now(),
         ];
     }
+
 }

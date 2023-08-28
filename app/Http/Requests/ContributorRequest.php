@@ -22,8 +22,8 @@ class ContributorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_name' => 'string',
-            'amount' => 'integer'
+            'user_name' => 'required|string',
+            'amount' => 'required|integer'
         ];
     }
 }
