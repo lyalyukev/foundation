@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use InvalidArgumentException;
@@ -45,6 +46,13 @@ class Handler extends ExceptionHandler
                 'code' => 400
             ],
                 400);
+        }
+        if ($exception instanceof AuthenticationException) {
+            return response()->json([
+                'error' => $exception->getMessage(),
+                'code' => 401
+            ],
+                401);
         }
 
         return parent::render($request, $exception);
