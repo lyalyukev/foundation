@@ -44,7 +44,10 @@ Protect by token, for generating token use "php artisan token:generate"
 ### Get detail Collection (with Contributors)
 > GET /api/v1/collection/{id}/
 
-### Get list of Collection
+### Get all Collections with remainder
+> GET /api/v1/collections-with-remainder/
+
+### Get list of Collection with filter by sum and order by sum
 > GET /api/v1/collections/filter/{filter}/
 
 We can filter collection (target_amount <=> x and order by sum desc or asc)

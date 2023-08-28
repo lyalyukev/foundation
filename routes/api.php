@@ -34,6 +34,9 @@ Route::get('/collection/{id}/', [FundCollectionController::class, 'show']);
 // Get list of collections
 Route::get('/collections/', [FundCollectionController::class, 'index']);
 
+// Get list of collections where sum contributes less target amount
+Route::get('/collections-with-remainder/', [FundCollectionController::class, 'collectionWithRemainder']);
+
 //Get list of collections with contributors
 Route::get('/collections-with-contributors/', [FundCollectionController::class, 'indexWithContributors']);
 

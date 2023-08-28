@@ -34,6 +34,11 @@ class FundCollectionController extends Controller
         return (new FundCollectionResource($fundCollection))->response()->setStatusCode(201);
     }
 
+    public function collectionWithRemainder () {
+        return $query = FundCollection::WithRemainingAmount()->get();
+    }
+
+
     public function filterCollections(FilterQueryService $filterQueryService, $filter = null)
     {
         $query = FundCollection::query();
@@ -41,7 +46,6 @@ class FundCollectionController extends Controller
         if ($filter) {
             $filterQueryService->applyFilters($filter, $query);
         }
-
         return new FundCollectionCollection($query->get());
     }
 }
