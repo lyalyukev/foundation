@@ -2,36 +2,50 @@
 
 namespace App\Services;
 
+use Illuminate\Database\Eloquent\Builder;
+
 class FilterQueryService
 {
+    const OPERATORS = ['>', '<', '='];
+
     public function handle($filter, $query)
     {
-        try {
 
-            parse_str($filter, $parameters);
 
-            if (array_key_exists('target_amount', $parameters)) {
-                $filterTargetAmount = $parameters['target_amount'];
-                if (preg_match('/([>=<])(\d+)/', $filterTargetAmount, $matches)) {
-                    $operator = $matches[1];
-                    $number = $matches[2];
+        parse_str($filter, $parameters);
 
-                    $query->where('target_amount', $operator, $number);
-                }
+        if (array_key_exists('target_amount', $parameters)) {
 
-            }
-
-            if (array_key_exists('order', $parameters)) {
-                $query->orderBy('target_amount', $parameters['order']);
-            }
-
-            return $query;
-
-        } catch (\Throwable $e) {
-
-            return response()->json(['error' => 'Uknown filter parameters', 'code' => 500]);
+            $this->applyTargetAmountFilter($parameters['target_amount'], $query);
 
         }
+
+        if (array_key_exists('order', $parameters)) {
+
+            $this->applyOrderFilter($parameters['order'], $query);
+
+        }
+
+        return $query;
+
+    }
+
+    private function applyTargetAmountFilter($filter, Builder $query)
+    {
+        if (preg_match('/([>=<])(\d+)/', $filter, $matches)) {
+            $operator = $matches[1];
+            $number = $matches[2];
+
+            if (in_array($operator, self::OPERATORS)) {
+                $query->where('target_amount', $operator, $number);
+            }
+        }
+    }
+
+    private function applyOrderFilter($order, Builder $query)
+    {
+        $direction = strtolower($order) === 'desc' ? 'desc' : 'asc';
+        $query->orderBy('target_amount', $direction);
     }
 
 }
