@@ -31,7 +31,9 @@ class FundCollection extends Model
             }, 'col')
             ->join('collections', 'collections.id', '=', 'col.collection_id')
             ->whereRaw('target_amount - sum_amount > 0')
-            ->whereRaw('(target_amount - sum_amount) < '.$sum)
+            ->when($sum > 0, function ($query) use ($sum) {
+                $query->whereRaw('(target_amount - sum_amount) < '.$sum);
+            })
             ->orderBy('differ');
     }
 
