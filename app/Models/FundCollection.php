@@ -20,7 +20,7 @@ class FundCollection extends Model
         return $this->hasMany(Contributor::class, 'collection_id', 'id');
     }
 
-    public function scopeWithRemainingAmount($query)
+    public function scopeWithRemainingAmount($query, $sum = 0)
     {
         return $query->select('*', 'sum_amount', DB::raw('(target_amount - sum_amount) as differ'))
             ->fromSub(function ($query) {
@@ -31,7 +31,10 @@ class FundCollection extends Model
             }, 'col')
             ->join('collections', 'collections.id', '=', 'col.collection_id')
             ->whereRaw('target_amount - sum_amount > 0')
+            ->whereRaw('(target_amount - sum_amount) < '.$sum)
             ->orderBy('differ');
     }
+
+
 
 }

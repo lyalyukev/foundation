@@ -47,6 +47,9 @@ Protect by token, for generating token use "php artisan token:generate"
 ### Get all Collections with remainder
 > GET /api/v1/collections-with-remainder/
 
+### Get all Collections with remainder where remainder less than {sum}
+> GET /api/v1/collections-with-remainder/less/{sum}/
+
 ### Get list of Collection with filter by sum and order by sum
 > GET /api/v1/collections/filter/{filter}/
 
