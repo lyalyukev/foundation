@@ -36,7 +36,6 @@ class FundCollectionController extends Controller
 
     public function filterCollections(FilterQueryService $filterQueryService, $filter = null)
     {
-        try {
         $query = FundCollection::query();
 
         if ($filter) {
@@ -44,12 +43,6 @@ class FundCollectionController extends Controller
         }
 
         return new FundCollectionCollection($query->get());
-        
-        } catch (\Throwable $e) {
-            return response()->json([
-                'error' => 'Invalid filter parameters',
-                'code' => 400,
-            ], 400);
-        }
+
     }
 }

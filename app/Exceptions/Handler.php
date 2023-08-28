@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use InvalidArgumentException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -33,7 +34,17 @@ class Handler extends ExceptionHandler
     {
         if ($exception instanceof ModelNotFoundException) {
             return response()->json([
-                'error' => 'Entry for '.str_replace('App', '', $exception->getModel()).' not found'], 404);
+                'error' => 'Entry for '.str_replace('App', '', $exception->getModel()).' not found',
+                'code' => 404
+                ],
+                404);
+        }
+        if ($exception instanceof InvalidArgumentException) {
+            return response()->json([
+                'error' => 'Invalid filter parameters',
+                'code' => 400
+            ],
+                400);
         }
 
         return parent::render($request, $exception);
