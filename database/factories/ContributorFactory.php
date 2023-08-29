@@ -21,7 +21,7 @@ class ContributorFactory extends Factory
     {
         return [
             'user_name' => $this->faker->name,
-            'amount' => $this->faker->numberBetween(1000, 990000),
+            'amount' => $this->faker->numberBetween(1000, 99000),
             'collection_id' => FundCollection::factory()
         ];
     }

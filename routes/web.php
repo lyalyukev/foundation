@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function (){
 
     Route::get('/collection/{id}/edit/', [FundCollectionController::class, 'edit'])->name('collection.edit');
     Route::put('/collection/{id}/update/', [FundCollectionController::class, 'update'])->name('collection.update');
+    Route::get('/collection/{id}/delete/', [FundCollectionController::class, 'destroy'])->name('collection.destroy');
 });
 
 Route::get('/', function () {

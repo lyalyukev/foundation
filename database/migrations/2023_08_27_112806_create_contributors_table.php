@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('contributors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('collection_id')->constrained('collections');
+            $table->foreignId('collection_id')->constrained('collections')->onDelete('cascade');
             $table->string('user_name');
             $table->integer('amount');
 

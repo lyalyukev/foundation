@@ -65,5 +65,12 @@ class FundCollectionController extends Controller
 
         return to_route('collection.contributors', ['id'=>$id]);
     }
+    public function destroy ($id)
+    {
+        $collection = FundCollection::findOrFail($id);
+        $collection->delete();
+
+        return back();
+    }
 
 }
