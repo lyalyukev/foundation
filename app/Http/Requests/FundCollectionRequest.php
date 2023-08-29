@@ -25,7 +25,7 @@ class FundCollectionRequest extends FormRequest
             'title' => 'required|string',
             'description' => 'required|string',
             'target_amount' => 'required|integer',
-            'link' => 'required|string'
+            'link' => 'required|string|url:http'
         ];
     }
 }

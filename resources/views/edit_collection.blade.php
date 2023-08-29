@@ -35,7 +35,7 @@
                     @error('description')
                     <div class="text-red-700">{{ $message }}</div>
                     @enderror
-                    <label for="link" class="block text-sm font-medium text-gray-700">Description</label>
+                    <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
                     <textarea id="description" rows="25" name="description" class="mt-1 px-4 py-2 w-full border rounded-md focus:ring-blue-500 focus:border-blue-500">{{ $collection->description }}</textarea>
                 </div>
 
