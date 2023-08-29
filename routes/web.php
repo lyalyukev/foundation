@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FundCollectionController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,9 @@ Route::middleware('auth')->group(function (){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/all-collections', [DashboardController::class, 'allCollections'])->name('collections.all');
     Route::get('/collection/{id}/contributors/', [DashboardController::class, 'collectionContributors'])->name('collection.contributors');
+
+    Route::get('/collection/{id}/edit/', [FundCollectionController::class, 'edit'])->name('collection.edit');
+    Route::put('/collection/{id}/update/', [FundCollectionController::class, 'update'])->name('collection.update');
 });
 
 Route::get('/', function () {

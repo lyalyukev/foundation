@@ -7,7 +7,7 @@
 
         @foreach ($collections as $collection)
 
-            <p class="font-bold">Collection ID: {{ $collection->id }} <a href="" class="underline text-blue-500">
+            <p class="font-bold">Collection ID: {{ $collection->id }} <a href="{{route('collection.edit', ['id' => $collection->id])}}" class="underline text-blue-500">
                     Edit</a></p>
             <p>Title: {{ $collection->title }}</p>
             <p>Target amount: {{ $collection->target_amount }}</p>

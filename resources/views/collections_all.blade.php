@@ -6,7 +6,7 @@
     <div>
         @foreach ($allCollections as $collection)
             <div class="mt-8">
-                <p class="font-bold">Collection ID: {{ $collection->id }} </p>
+                <p class="font-bold">Collection ID: {{ $collection->id }} <a href="{{route('collection.edit', ['id' => $collection->id])}}" class="underline text-blue-500">Edit</a></p>
                 <p>Title: {{ $collection->title }}</p>
                 <p>Target amount: {{ $collection->target_amount }}</p>
                 <p>Contributors Sum Amount: {{ $collection->contributors_sum_amount }}</p>

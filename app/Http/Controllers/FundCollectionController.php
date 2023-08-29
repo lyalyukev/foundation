@@ -52,4 +52,18 @@ class FundCollectionController extends Controller
         }
         return new FundCollectionCollection($query->get());
     }
+
+    public function edit($id)
+    {
+        $collection = FundCollection::findOrFail($id);
+        return view('edit_collection', ['collection' => $collection]);
+    }
+    public function update ($id, FundCollectionRequest $request)
+    {
+        $collection = FundCollection::findOrFail($id);
+        $collection->update($request->validated());
+
+        return to_route('collection.contributors', ['id'=>$id]);
+    }
+
 }
