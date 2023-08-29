@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Contributor;
 use App\Models\FundCollection;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,6 +19,12 @@ class DatabaseSeeder extends Seeder
         FundCollection::factory(10)
             ->has(Contributor::factory(10), 'contributors')
             ->create();
+
+        \App\Models\User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'password' => Hash::make('password')
+        ]);
 
     }
 }

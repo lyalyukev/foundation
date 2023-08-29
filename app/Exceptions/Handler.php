@@ -33,28 +33,30 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
-        if ($exception instanceof ModelNotFoundException) {
-            return response()->json([
-                'error' => 'Entry for '.str_replace('App', '', $exception->getModel()).' not found',
-                'code' => 404
+        if ($request->is('api/*')) {
+            if ($exception instanceof ModelNotFoundException) {
+                return response()->json([
+                    'error' => 'Entry for ' . str_replace('App', '', $exception->getModel()) . ' not found',
+                    'code' => 404
                 ],
-                404);
-        }
-        if ($exception instanceof InvalidArgumentException) {
-            return response()->json([
-                'error' => 'Invalid filter parameters',
-                'code' => 400
-            ],
-                400);
-        }
-        if ($exception instanceof AuthenticationException) {
-            return response()->json([
-                'error' => $exception->getMessage(),
-                'code' => 401
-            ],
-                401);
-        }
+                    404);
+            }
+            if ($exception instanceof InvalidArgumentException) {
+                return response()->json([
+                    'error' => 'Invalid filter parameters',
+                    'code' => 400
+                ],
+                    400);
+            }
+            if ($exception instanceof AuthenticationException) {
+                return response()->json([
+                    'error' => $exception->getMessage(),
+                    'code' => 401
+                ],
+                    401);
+            }
 
-        return parent::render($request, $exception);
+            return parent::render($request, $exception);
+        }
     }
 }

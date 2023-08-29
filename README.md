@@ -28,6 +28,8 @@ Generate token for POST API methods
 
 >php artisan test 
 
+### Web Interface
+
 ## Route list
 
 ### Create Collection
