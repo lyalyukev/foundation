@@ -30,6 +30,8 @@ Generate token for POST API methods
 
 ### Web Interface
 
+>After seeding login with e-mail "test@example.com" and password "password"
+
 ## Route list
 
 ### Create Collection
