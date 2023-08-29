@@ -12,12 +12,12 @@ use App\Services\FilterQueryService;
 class FundCollectionController extends Controller
 {
 
-    public function index()
+    public function getCollections()
     {
         return new FundCollectionCollection(FundCollection::all());
     }
 
-    public function indexWithContributors()
+    public function getCollectionsWithContributors()
     {
         return new FundCollectionCollection(FundCollection::with('contributors')->get());
     }
@@ -34,11 +34,11 @@ class FundCollectionController extends Controller
         return (new FundCollectionResource($fundCollection))->response()->setStatusCode(201);
     }
 
-    public function collectionWithRemainderFilter ($sum = 0) {
+    public function collectionsWithRemainderFilter ($sum = 0) {
         return FundCollection::query()->WithRemainingAmount($sum)->get();
     }
 
-    public function collectionWithRemainder () {
+    public function collectionsWithRemainder () {
         return FundCollection::WithRemainingAmount()->get();
     }
 

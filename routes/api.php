@@ -32,16 +32,16 @@ Route::middleware('token.protect')->group(function () {
 Route::get('/collection/{id}/', [FundCollectionController::class, 'show']);
 
 // Get list of collections
-Route::get('/collections/', [FundCollectionController::class, 'index']);
+Route::get('/collections/', [FundCollectionController::class, 'getCollections']);
 
 // Get list of collections where sum contributes less target amount
-Route::get('/collections-with-remainder/', [FundCollectionController::class, 'collectionWithRemainder']);
+Route::get('/collections-with-remainder/', [FundCollectionController::class, 'collectionsWithRemainder']);
 
 // Get list of collections where sum contributes less target amount
-Route::get('/collections-with-remainder/less/{sum}/', [FundCollectionController::class, 'collectionWithRemainderFilter']);
+Route::get('/collections-with-remainder/less/{sum}/', [FundCollectionController::class, 'collectionsWithRemainderFilter']);
 
 //Get list of collections with contributors
-Route::get('/collections-with-contributors/', [FundCollectionController::class, 'indexWithContributors']);
+Route::get('/collections-with-contributors/', [FundCollectionController::class, 'getCollectionsWithContributorsWithContributors']);
 
 //Get list of collection with filter and order parameters (filter=>10000&order=desc)
 Route::get('/collections/filter/{filter}/', [FundCollectionController::class, 'filterCollections']);
@@ -49,5 +49,6 @@ Route::get('/collections/filter/{filter}/', [FundCollectionController::class, 'f
 //If we don`t have route
 Route::fallback(function () {
     return response()->json([
-        'message' => 'Page Not Found'], 404);
+        'message' => 'Page Not Found'
+    ], 404);
 });
